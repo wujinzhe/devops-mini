@@ -2,15 +2,15 @@
   <div class="my">
     <div class="my__cell-group">
       <van-cell-group border>
-        <van-cell title="我的订单" is-link/>
-        <van-cell title="优惠券" is-link />
-        <van-cell title="影院会员卡" is-link :border="false"/>
+        <van-cell title="我的贡献" is-link @click="contribution"/>
+        <van-cell title="我的项目" is-link />
+        <van-cell title="其他" is-link :border="false"/>
       </van-cell-group>
     </div>
     <div class="my__cell-group">
       <van-cell-group>
-        <van-cell title="想看的电影" is-link />
-        <van-cell title="看过的电影" is-link :border="false"/>
+        <van-cell title="其他" is-link />
+        <van-cell title="其他" is-link :border="false"/>
       </van-cell-group>
     </div>
    
@@ -47,6 +47,14 @@
     onUnload: function () {
       // 页面关闭
       console.log('我的 onUnload 页面关闭')
+    },
+    methods: {
+      contribution () {
+        console.log('111')
+        wx.navigateTo({
+          url: '/pages/contribution/main'// 实际路径要写全
+        })
+      }
     }
   }
 </script>

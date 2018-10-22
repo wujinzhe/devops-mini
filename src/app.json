@@ -2,13 +2,15 @@
   "pages": [
     "pages/index/main",
     "pages/logs/main",
-    "pages/my/main"
+    "pages/my/main",
+    "pages/contribution/main"
   ],
   "window": {
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#71d5f3",
     "navigationBarTitleText": "devops",
-    "navigationBarTextStyle": "#FFF"
+    "navigationBarTextStyle": "#FFF",
+    "backgroundColor": "f5f5f5"
   },
   "tabBar": {
     "selectedColor": "#71d5f3",
