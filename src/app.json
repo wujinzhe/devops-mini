@@ -3,7 +3,8 @@
     "pages/index/main",
     "pages/logs/main",
     "pages/my/main",
-    "pages/contribution/main"
+    "pages/contribution/main",
+    "pages/info/main"
   ],
   "window": {
     "backgroundTextStyle": "light",
