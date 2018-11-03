@@ -1,14 +1,12 @@
 <template>
   <div>
-    我的贡献
-    
     <div class="userinfo" @click="bindViewTap">
-      <img class="userinfo-avatar" v-if="userInfo.avatarUrl" :src="userInfo.avatarUrl" background-size="cover" />
-      <div class="userinfo-nickname">
-        <card :text="userInfo.nickName"></card>
-      </div>
+      <img class="userinfo__avatar" :src="avatarUrl">
+      <p class="userinfo__nickname">
+        {{ nickName }}
+      </p>
     </div>
-    <button open-type="getUserInfo" lang="zh_CN" @click="onGotUserInfo">获取用户信息</button>
+    <!-- <button open-type="getUserInfo" lang="zh_CN" @click="onGotUserInfo">获取用户信息</button> -->
   </div>
 </template>
 
@@ -21,19 +19,7 @@
         avatarUrl: ''
       }
     },
-    onLoad () {
-      wx.getUserInfo({
-        success: (res) => {
-          console.log(res)
-
-          this.nickName = res.userInfo.nickName
-          this.avatarUrl = res.userInfo.avatarUrl
-          // that.setData({
-          //   [avatarUrl]: res.userInfo.avatarUrl,
-          //   [nickName]: res.userInfo.nickName
-          // })
-        }
-      })
+    created () {
     },
     onShow () {
       wx.setNavigationBarTitle({
@@ -42,18 +28,6 @@
     },
     methods: {
       onGotUserInfo () {
-        wx.getUserInfo({
-          success: (res) => {
-            console.log(res)
-
-            this.nickName = res.userInfo.nickName
-            this.avatarUrl = res.userInfo.avatarUrl
-          // that.setData({
-          //   [avatarUrl]: res.userInfo.avatarUrl,
-          //   [nickName]: res.userInfo.nickName
-          // })
-          }
-        })
       }
     }
   }
@@ -62,5 +36,23 @@
 <style lang="less" scoped>
   page {
     background-color: #f5f5f5;
+  }
+  .userinfo {
+    background-color: #71d5f3;
+
+    &__avatar {
+      width: 100rpx;
+      height: 100rpx;
+      margin: auto;
+      display: block;
+      border-radius: 50rpx;
+      border: 1px solid #999999;
+    }
+
+    &__nickname {
+      font-size: 30rpx;
+      color: #999999;
+      text-align: center;
+    }
   }
 </style>

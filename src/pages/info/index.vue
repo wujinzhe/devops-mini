@@ -1,10 +1,10 @@
 <template>
   <div class="info">
+    <h2>基本信息</h2>
     <van-cell-group>
       <van-field
         v-model="name"
         clearable
-        left-icon="contact"
         label="姓名"
         placeholder="请输入用户名"
         readonly
@@ -40,6 +40,10 @@
         placeholder="所在城市"
         border
       />
+    </van-cell-group>
+
+    <h2>职业信息</h2>
+    <van-cell-group>
       <van-field
         v-model="job"
         label="职业"
@@ -71,7 +75,7 @@
     onShow: function () {
       // 页面显示
       wx.setNavigationBarTitle({
-        title: '个人信息'
+        title: '个人资料'
       })
       console.log('我的 onShow 页面显示')
     },
@@ -85,12 +89,16 @@
     background-color: #f5f5f5;
   }
 
-  .info {
-    padding-top: 20rpx;
-  }
-
   .btn-group {
     text-align: right;
     padding: 30rpx 30rpx;
+  }
+
+  h2 {
+    color: #999999;
+    font-weight: 400;
+    font-size: 28rpx;
+    padding: 10rpx;
+    padding-top: 20rpx;
   }
 </style>
