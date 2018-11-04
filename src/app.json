@@ -1,7 +1,7 @@
 {
   "pages": [
-    "pages/my/main",
     "pages/index/main",
+    "pages/my/main",
     "pages/logs/main",
     "pages/contribution/main",
     "pages/info/main",
@@ -15,6 +15,7 @@
     "backgroundColor": "f5f5f5"
   },
   "tabBar": {
+    "color": "#999999",
     "selectedColor": "#71d5f3",
     "list": [{
       "pagePath": "pages/index/main",
