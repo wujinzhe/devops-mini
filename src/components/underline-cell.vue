@@ -6,10 +6,16 @@
         <h2>我是活动的标题标题标题啦啦啦</h2>
         <p class="activity-content__des">我是描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述</p>
         <div style="margin-top: 11rpx;">
+          <div class="activity-content__time">
+            <i class="iconfont">&#xe614;</i>
+            <span>2018.11.11</span>
+          </div>
+
           <div class="activity-content__integral">
             <i class="iconfont">&#xe65e;</i>
             <span>120</span>
           </div>
+          
           <div class="activity-content__person">
             <i class="iconfont">&#xe749;</i>
             <span>120</span>
@@ -23,7 +29,33 @@
 
 <script>
   export default {
-    name: 'UnderlineCell'
+    name: 'UnderlineCell',
+    props: {
+      imgUrl: {
+        type: String,
+        default: 'http://img.hb.aicdn.com/afc609ed62de02c75272a2b29ff0c27cadad02532ea93-t593Iz_fw658'
+      },
+      title: {
+        type: String,
+        default: '我是标题'
+      },
+      desc: {
+        type: String,
+        default: '我是描述'
+      },
+      person: {
+        type: Number,
+        default: 0
+      },
+      integral: {
+        type: Number,
+        default: 0
+      },
+      dateTime: {
+        type: String,
+        default: '2000-01-01 12:00:00'
+      }
+    }
   }
 </script>
 
@@ -66,6 +98,12 @@
     }
 
     &__integral {
+      color: #999999;
+      font-size: 24rpx;
+      float: left;
+    }
+
+    &__time {
       color: #999999;
       font-size: 24rpx;
       float: left;
