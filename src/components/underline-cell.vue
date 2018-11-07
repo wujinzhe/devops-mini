@@ -1,27 +1,29 @@
 <template>
   <div class="underline-cell">
     <div class="activity-cell">
-      <img class="activity-cover" src="http://pic.qiantucdn.com/58pic/13/17/96/89R58PICwZJ_1024.jpg" alt="">
+      <img class="activity-cover" :src="imgUrl" alt="">
       <div class="activity-content">
-        <h2>我是活动的标题标题标题啦啦啦</h2>
-        <p class="activity-content__des">我是描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述</p>
-        <div style="margin-top: 11rpx;">
+        <h2>{{ title }}</h2>
+        <p class="activity-content__desc">{{ desc }}</p>
+        <div class="activity-content__info" style="margin-top: 11rpx;">
           <div class="activity-content__time">
             <i class="iconfont">&#xe614;</i>
-            <span>2018.11.11</span>
+            <span>{{ date }}</span>
           </div>
 
           <div class="activity-content__integral">
             <i class="iconfont">&#xe65e;</i>
-            <span>120</span>
+            <span>{{ integral }}</span>
           </div>
           
           <div class="activity-content__person">
             <i class="iconfont">&#xe749;</i>
-            <span>120</span>
+            <span>{{ person }}</span>
           </div>
         </div>
-        <div class="activity-content__tag">未开始</div>
+        <div class="activity-content__tag" v-if="state === 0">未开始</div>
+        <div class="activity-content__tag go" v-if="state === 1">进行中</div>
+        <div class="activity-content__tag end" v-if="state === 2">已结束</div>
       </div>
     </div>
   </div>
@@ -33,7 +35,7 @@
     props: {
       imgUrl: {
         type: String,
-        default: 'http://img.hb.aicdn.com/afc609ed62de02c75272a2b29ff0c27cadad02532ea93-t593Iz_fw658'
+        default: 'http://pic.qiantucdn.com/58pic/13/17/96/89R58PICwZJ_1024.jpg'
       },
       title: {
         type: String,
@@ -51,9 +53,13 @@
         type: Number,
         default: 0
       },
-      dateTime: {
+      date: {
         type: String,
-        default: '2000-01-01 12:00:00'
+        default: '2018.11.11'
+      },
+      state: {
+        type: Number,
+        default: 0 // 0 未开始 1 进行中 2已结束
       }
     }
   }
@@ -92,27 +98,17 @@
       max-width: 350rpx;
     }
 
-    &__des {
+    &__desc {
       font-size: 26rpx;
       color: #999999;
+      height: 74rpx;
     }
 
-    &__integral {
+    &__info {
+      display: flex;
       color: #999999;
       font-size: 24rpx;
-      float: left;
-    }
-
-    &__time {
-      color: #999999;
-      font-size: 24rpx;
-      float: left;
-    }
-
-    &__person {
-      color: #999999;
-      font-size: 24rpx;
-      float: right;
+      justify-content: space-between;
     }
 
     &__integral span, &__person span {
@@ -124,10 +120,18 @@
       top: 0rpx;
       right: 0rpx;
       padding: 4rpx 10rpx;
-      background-color: #ff9800;
+      background-color: #ffaa2b;
       font-size: 14rpx;
       color: white;
       border-radius: 5rpx;
+    }
+
+    &__tag.go {
+      background-color: #4fce4f;
+    }
+
+     &__tag.end {
+      background-color: #cccccc;
     }
   }
 </style>

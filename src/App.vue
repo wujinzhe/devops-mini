@@ -46,5 +46,6 @@ export default {
   page {
     background-color: #f5f5f5;
     height: 100%;
+    color: #282828;
   }
 </style>
