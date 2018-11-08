@@ -78,7 +78,36 @@
         <article-cell></article-cell>
       </scroll-view>
     </van-tab>
-    <van-tab title="推荐书籍">内容 4</van-tab>
+    <van-tab title="推荐书籍">
+      <scroll-view
+        class="scroll-view"
+        scroll-y
+        enable-back-to-top
+        @scrolltoupper="underlineUpper"
+        @scrolltolower="underlineLower"
+        :upper-threshold="-50"
+        :lower-threshold="-50">
+        <book-cell></book-cell>
+        <book-cell></book-cell>
+        <book-cell></book-cell>
+        <book-cell></book-cell>
+        <book-cell></book-cell>
+        <book-cell></book-cell>
+        <book-cell></book-cell>
+        <book-cell></book-cell>
+        <book-cell></book-cell>
+        <book-cell></book-cell>
+        <book-cell></book-cell>
+        <book-cell></book-cell>
+        <book-cell></book-cell>
+        <book-cell></book-cell>
+        <book-cell></book-cell>
+        <book-cell></book-cell>
+        <book-cell></book-cell>
+        <book-cell></book-cell>
+        <book-cell></book-cell>
+       </scroll-view>
+    </van-tab>
   </van-tabs>
   </div>
 </template>
@@ -86,6 +115,7 @@
 <script>
 import underlineCell from '@/components/underline-cell'
 import articleCell from '@/components/article-cell'
+import bookCell from '@/components/book-cell'
 const underlineData = [
   {
     title: '教你学Java',
@@ -165,7 +195,8 @@ export default {
   name: 'Home',
   components: {
     underlineCell,
-    articleCell
+    articleCell,
+    bookCell
   },
   data () {
     return {
