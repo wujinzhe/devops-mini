@@ -6,7 +6,7 @@
         <h2>{{ title }}</h2>
         <p class="activity-content__desc">{{ desc }}</p>
         <div class="activity-content__info" style="margin-top: 11rpx;">
-          <div class="activity-content__time">
+          <div class="activity-content__date">
             <i class="iconfont">&#xe614;</i>
             <span>{{ date }}</span>
           </div>
@@ -111,7 +111,7 @@
       justify-content: space-between;
     }
 
-    &__integral span, &__person span {
+    &__integral span, &__person span, &__date span {
       margin-left: 10rpx;
     }
 
