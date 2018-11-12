@@ -19,7 +19,7 @@
     <div class="my__cell-group">
       <van-cell-group border>
         <van-cell title="我的贡献" is-link @click="toContribution"/>
-        <van-cell title="我的任务" is-link />
+        <van-cell title="我的任务" is-link @click="toTask"/>
         <van-cell title="个人资料" is-link @click="toInfo" :border="false"/>
       </van-cell-group>
     </div>
@@ -80,7 +80,13 @@
       /** 跳转个人信息 */
       toInfo () {
         wx.navigateTo({
-          url: '/pages/info/main' // 跳转个人信息
+          url: '/pages/info/main'
+        })
+      },
+      /** 跳转到我的任务 */
+      toTask () {
+        wx.navigateTo({
+          url: '/pages/task/main'
         })
       },
       /** 跳转到个人积分 */

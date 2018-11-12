@@ -1,5 +1,6 @@
 {
   "pages": [
+    "pages/task/main",
     "pages/index/main",
     "pages/my/main",
     "pages/logs/main",
@@ -12,7 +13,7 @@
     "navigationBarBackgroundColor": "#71d5f3",
     "navigationBarTitleText": "devops",
     "navigationBarTextStyle": "#FFF",
-    "backgroundColor": "f5f5f5"
+    "backgroundColor": "#f5f5f5"
   },
   "tabBar": {
     "color": "#999999",
