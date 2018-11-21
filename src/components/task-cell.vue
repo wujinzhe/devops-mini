@@ -2,25 +2,26 @@
   <div class="task-cell-wrap">
     <div class="task-cell">
       <div class="task-cell__title">
-        <h2>任务标题</h2>
-        <span>未认领</span>
+        <h2>{{ title }}</h2>
+        <span>{{ titleTag }}</span>
       </div>
       <div class="task-cell__desc">
-       我是很多很多描述是很多很多描述是很多很多描述是很多很多描述是很多很多描述是很多很多描述是很多很多描述是很多很多描述是很多很多描述
+       {{ desc }}
       </div>
       <div class="task-cell__footer">
         <div class="task-cell__footer__info">
           <div>
-            <i></i>
-            <span></span>
+            <i class="iconfont">&#xe65e;</i>
+            <span>{{ integral }}</span>
           </div>
           <div>
-            <i></i>
-            <span></span>
+            <i class="iconfont">&#xe614;</i>
+            <span>{{ endDate }}</span>
           </div>
         </div>
         <div class="task-cell__footer__btn">
-          
+          <a href="" v-if="status === 0">认领</a>
+          <a href="">详情</a>
         </div>
       </div>
     </div>
@@ -31,9 +32,36 @@
   export default {
     name: 'taskCell',
     props: {
-      imgUrl: {
+      title: {
         type: String,
-        default: 'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2447683882,2644927629&fm=26&gp=0.jpg'
+        default: '新手任务'
+      },
+      endDate: {
+        type: String,
+        default: '2019.10.11'
+      },
+      status: {
+        type: Number,
+        default: 0
+      },
+      desc: {
+        type: String,
+        default: '我是新手任务我怕谁'
+      },
+      integral: {
+        type: Number,
+        default: 200
+      }
+    },
+    computed: {
+      titleTag () {
+        if (this.status === 0) {
+          return '未认领'
+        } else if (this.status === 1) {
+          return '进行中'
+        } else if (this.status === 2) {
+          return '已完成'
+        }
       }
     }
   }
@@ -41,20 +69,18 @@
 
 <style lang="less" scoped>
   .task-cell-wrap {
-    padding-left: 30rpx;
     background-color: #ffffff;
     color: #282828;
   }
 
   .task-cell {
-    padding: 20rpx 0 20rpx 0rpx;
-    // border-bottom: 1px solid #eeeeee;
+    padding: 20rpx 0rpx 20rpx 30rpx;
+    border-bottom: 1rpx solid #eeeeee;
   }
 
   .task-cell__title {
     display: flex;
     justify-content: space-between;
-    border-bottom: 1px solid #eeeeee;
     padding-bottom: 10rpx;
 
     h2 {
@@ -62,12 +88,9 @@
     }
 
     span {
-      height: 20rpx;
-      color: #ffffff;
-      padding: 5rpx 5rpx;
-      line-height: 1;
-      font-size: 15rpx;
-      background-color: #ff9800;
+      color: #999999;
+      padding: 5rpx 10rpx;
+      font-size: 18rpx;
       margin-right: 30rpx;
     }
   }
@@ -77,9 +100,44 @@
     font-size: 28rpx;
     line-height: 30rpx;
     padding-right: 30rpx;
+    width: 100%;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
   }
 
   .task-cell__footer {
+    margin-top: 40rpx;
+    display:flex;
+    justify-content:space-between;
+    padding-right:30rpx;
+    align-items: flex-end;
 
+    &__info {
+      font-size: 26rpx;
+      color: #999999;
+
+      & > div {
+        display: inline-block;
+        margin-right: 30rpx;
+        vertical-align: bottom;
+      }
+
+      span {
+        margin-left:10rpx;
+      }
+    }
+
+    &__btn {
+      a {
+        background-color: #ff9683;
+        padding: 7rpx 30rpx;
+        color: white;
+        font-size: 22rpx;
+        display: inline-block;
+        margin-left: 20rpx;
+        border-radius: 4rpx;
+      }
+    }
   }
 </style>

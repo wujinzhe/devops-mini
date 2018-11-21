@@ -1,7 +1,7 @@
 {
   "pages": [
-    "pages/task/main",
     "pages/index/main",
+    "pages/task/main",
     "pages/my/main",
     "pages/logs/main",
     "pages/contribution/main",

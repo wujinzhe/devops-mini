@@ -11,6 +11,13 @@
         :upper-threshold="-50"
         :lower-threshold="-50">
         <task-cell></task-cell>
+        <task-cell></task-cell>
+        <task-cell></task-cell>
+        <task-cell></task-cell>
+        <task-cell></task-cell>
+        <task-cell></task-cell>
+        <task-cell></task-cell>
+        <task-cell></task-cell>
       </scroll-view>
     </van-tab>
     <van-tab title="进行中">
@@ -22,6 +29,18 @@
         @scrolltolower="underlineLower"
         :upper-threshold="-50"
         :lower-threshold="-50">
+        <task-cell :status="1"></task-cell>
+        <task-cell :status="1"></task-cell>
+        <task-cell :status="1"></task-cell>
+        <task-cell :status="1"></task-cell>
+        <task-cell :status="1"></task-cell>
+        <task-cell :status="1"></task-cell>
+        <task-cell :status="1"></task-cell>
+        <task-cell :status="1"></task-cell>
+        <task-cell :status="1"></task-cell>
+        <task-cell :status="1"></task-cell>
+        <task-cell :status="1"></task-cell>
+        <task-cell :status="1"></task-cell>
       </scroll-view>
     </van-tab>
     <van-tab title="已完成">
@@ -33,6 +52,18 @@
         @scrolltolower="underlineLower"
         :upper-threshold="-50"
         :lower-threshold="-50">
+        <task-cell :status="2"></task-cell>
+        <task-cell :status="2"></task-cell>
+        <task-cell :status="2"></task-cell>
+        <task-cell :status="2"></task-cell>
+        <task-cell :status="2"></task-cell>
+        <task-cell :status="2"></task-cell>
+        <task-cell :status="2"></task-cell>
+        <task-cell :status="2"></task-cell>
+        <task-cell :status="2"></task-cell>
+        <task-cell :status="2"></task-cell>
+        <task-cell :status="2"></task-cell>
+        <task-cell :status="2"></task-cell>
        </scroll-view>
       </van-tab>
     </van-tabs>
@@ -65,6 +96,9 @@
 </script>
 
 <style lang="less" scope>
+  .scroll-view {
+    height: calc(100vh - 44px);
+  }
 </style>
 
 
