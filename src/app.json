@@ -1,10 +1,10 @@
 {
   "pages": [
-    "pages/index/main",
-    "pages/task/main",
-    "pages/my/main",
     "pages/logs/main",
+    "pages/task/main",
+    "pages/index/main",
     "pages/contribution/main",
+    "pages/my/main",
     "pages/info/main",
     "pages/integral-details/main"
   ],

@@ -1,31 +1,31 @@
 <template>
   <div>
-    <ul class="container log-list">
-      <li v-for="(log, index) in logs" :class="{ red: aa }" :key="index" class="log-item">
-        <card :text="(index + 1) + ' . ' + log"></card>
-      </li>
-    </ul>
+    <van-button @click="getData">获取数据</van-button>
+    {{ data }}
   </div>
 </template>
 
 <script>
-import { formatTime } from '@/utils/index'
-import card from '@/components/card'
 
 export default {
-  components: {
-    card
-  },
-
+  name: 'Log',
   data () {
     return {
-      logs: []
+      data: ''
     }
   },
-
-  created () {
-    const logs = (wx.getStorageSync('logs') || [])
-    this.logs = logs.map(log => formatTime(new Date(log)))
+  methods: {
+    getData () {
+      let vm = this
+      wx.request({
+        url: 'https://api.wroadw.com/',
+        method: 'get',
+        success (res) {
+          console.log(res)
+          vm.data = res.data
+        }
+      })
+    }
   }
 }
 </script>
