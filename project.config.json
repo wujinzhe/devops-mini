@@ -9,7 +9,8 @@
 	},
 	"miniprogramRoot": "dist/",
 	"compileType": "miniprogram",
-	"appid": "wxcec7bccfab5fa9f6",
+	"appid": "wxe211b23bf953a522",
+	"appSecret": "e39c0e48f59e8763a70778b837fd4445",
 	"projectname": "devops-mini",
 	"condition": {
 		"search": {
