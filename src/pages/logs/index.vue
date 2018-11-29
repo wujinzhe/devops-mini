@@ -1,6 +1,7 @@
 <template>
   <div>
     <van-button @click="getData">获取数据</van-button>
+    <van-button type="primary" @click="login">登录</van-button>
     {{ data }}
   </div>
 </template>
@@ -16,13 +17,24 @@ export default {
   },
   methods: {
     getData () {
+      // let vm = this
+      console.log(getApp())
+      console.log(this.$global)
+    },
+    login () {
       let vm = this
-      wx.request({
-        url: 'https://api.wroadw.com/',
-        method: 'get',
+      wx.login({
         success (res) {
-          console.log(res)
-          vm.data = res.data
+          if (res.code) {
+            console.log(res.code)
+            vm.$Http.getOpenId({code: res.code}).then(res => {
+              console.log(res)
+              wx.showToast({
+                title: '成功了',
+                icon: ''
+              })
+            })
+          }
         }
       })
     }
