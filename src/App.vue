@@ -1,60 +1,94 @@
 <script>
 export default {
   created () {
-    // 调用API从本地缓存中获取数据
-    const logs = wx.getStorageSync('logs') || []
-    logs.unshift(Date.now())
-    wx.setStorageSync('logs', logs)
+    const funcList = [this.getUserInfo(), this.getOpenId()]
+    Promise.all(funcList).then(data => {
+      // console.log(data)
+      const params = {
+        headUrl: data[0].avatarUrl,
+        nickName: data[0].nickName,
+        openid: data[1]
+      }
 
-    console.log('app created and cache logs by setStorageSync')
-    this.getUserInfo() // 获取头像等信息
+      /* 暂时没有考虑到用户更换昵称和头像的情况，
+      需要获取当前头像与昵称和数据库中的作对比，
+      如果有差异则修改数据库 */
 
-    this.getOpenId()
+      // 如果根据openid查询不到用户，则表示该用户第一次进入，添加该用户信息
+      ;(async () => {
+        const info = await this.$Http.getUserBaseInfo({openid: data[1]})
+        !info.data && await this.addUserBase(params)
+      })()
+    })
   },
   methods: {
     /** 获取用户信息（头像，昵称等） */
-    getUserInfo () {
-      if (!wx.getStorageSync('userInfo')) {
+    async getUserInfo () {
+      return new Promise((resolve, reject) => {
         wx.getUserInfo({
           success: (res) => {
             wx.setStorageSync('userInfo', res.userInfo)
+            resolve(res.userInfo)
+          },
+          fail: (err) => {
+            reject(err)
           }
         })
-      }
+      })
     },
     /** 获取用户openid */
-    getOpenId () {
+    async getOpenId () {
       let vm = this
-      if (!wx.getStorageSync('openid')) {
-        wx.login({
-          success (res) {
-            if (res.code) {
-              vm.$Http.getOpenId({code: res.code}).then(res => {
-                wx.setStorageSync('sessionKey', res.data.session_key)
-                wx.setStorageSync('openid', res.data.openid)
-              }).catch(err => {
-                console.log(err)
+      return new Promise((resolve, reject) => {
+        if (!wx.getStorageSync('openid')) {
+          wx.login({
+            success (res) {
+              if (res.code) {
+                vm.$Http.getOpenId({code: res.code}).then(res => {
+                  wx.setStorageSync('sessionKey', res.data.session_key)
+                  wx.setStorageSync('openid', res.data.openid)
+                  resolve(res.data.openid)
+                }).catch(err => {
+                  console.log(err)
+                  wx.showToast({
+                    title: '获取openId失败',
+                    icon: 'error'
+                  })
+                  reject(new Error('err'))
+                })
+              } else {
                 wx.showToast({
-                  title: '获取openId失败',
+                  title: '登录失败' + res.errMsg,
                   icon: 'error'
                 })
-              })
-            } else {
+                reject(new Error('err'))
+              }
+            },
+            fail (err) {
+              console.log(err)
               wx.showToast({
-                title: '登录失败' + res.errMsg,
+                title: '微信login接口调用失败' + err,
                 icon: 'error'
               })
+              reject(new Error('err'))
             }
-          },
-          fail (err) {
-            console.log(err)
-            wx.showToast({
-              title: '登录失败' + err,
-              icon: 'error'
-            })
-          }
+          })
+        } else {
+          resolve(wx.getStorageSync('openid'))
+        }
+      })
+    },
+    /** 将用户的基础信息添加到数据库中 */
+    addUserBase (data) {
+      this.$Http.addUserBase(data).then(res => {
+        console.log(res)
+      }).catch(err => {
+        console.log('将用户的基础信息添加到数据库中', err)
+        wx.showToast({
+          title: '信息初始化失败',
+          icon: 'error'
         })
-      }
+      })
     }
   }
 }

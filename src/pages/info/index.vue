@@ -53,7 +53,7 @@
     </van-cell-group>
 
     <div class="btn-group">
-      <van-button type="primary" size="small">编辑</van-button>
+      <van-button type="primary" size="large">编辑</van-button>
     </div>
   </div>
 </template>
@@ -90,8 +90,9 @@
   }
 
   .btn-group {
-    text-align: right;
-    padding: 30rpx 30rpx;
+    position: absolute;
+    width: 100%;
+    bottom: 0;
   }
 
   h2 {

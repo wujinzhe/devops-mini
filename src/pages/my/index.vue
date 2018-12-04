@@ -18,7 +18,7 @@
     </div>
     <div class="my__cell-group">
       <van-cell-group border>
-        <van-cell title="我的贡献" is-link @click="toContribution"/>
+        <!-- <van-cell title="我的贡献" is-link @click="toContribution"/> -->
         <van-cell title="我的任务" is-link @click="toTask"/>
         <van-cell title="个人资料" is-link @click="toInfo" :border="false"/>
       </van-cell-group>

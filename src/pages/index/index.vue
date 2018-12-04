@@ -1,7 +1,7 @@
 <template>
   <div>
     <van-tabs @change="tabChange" color="#71d5f3">
-    <van-tab title="线下活动">
+    <!-- <van-tab title="线下活动">
       <scroll-view
         class="scroll-view"
         scroll-y
@@ -77,7 +77,7 @@
         <article-cell></article-cell>
         <article-cell></article-cell>
       </scroll-view>
-    </van-tab>
+    </van-tab> -->
     <van-tab title="推荐书籍">
       <scroll-view
         class="scroll-view"
