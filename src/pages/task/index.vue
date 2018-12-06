@@ -24,18 +24,14 @@
         @scroll="doingScroll"
         :upper-threshold="-50"
         :lower-threshold="-50">
-        <task-cell :status="1"></task-cell>
-        <task-cell :status="1"></task-cell>
-        <task-cell :status="1"></task-cell>
-        <task-cell :status="1"></task-cell>
-        <task-cell :status="1"></task-cell>
-        <task-cell :status="1"></task-cell>
-        <task-cell :status="1"></task-cell>
-        <task-cell :status="1"></task-cell>
-        <task-cell :status="1"></task-cell>
-        <task-cell :status="1"></task-cell>
-        <task-cell :status="1"></task-cell>
-        <task-cell :status="1"></task-cell>
+        <task-cell 
+        v-for="(item, index) in doingTaskList"
+        :key="index"
+        :status="item.status"
+        :title="item.title"
+        :desc="item.desc"
+        :integral="item.integral"
+        :endDate="item.endDate"></task-cell>
       </scroll-view>
     </van-tab>
     <van-tab title="已完成">
@@ -91,8 +87,9 @@ export default {
         console.log(val)
       }
     },
-    created () {
-      this.getTaskList(0, 1)
+    async created () {
+      this.doingTaskList = await this.getTaskList(0, 1)
+      console.log(this.doingTaskList)
     },
     methods: {
       tabChange (data) {
@@ -107,20 +104,10 @@ export default {
       doingUpper () {
         if (!this.isDoingUpper) {
           this.isDoingUpper = true
-          // wx.showToast({
-          //   title: this.isDoingUpper,
-          //   icon: 'success',
-          //   duration: 2000
-          // })
           wx.vibrateShort()
-          // setTimeout(() => {
-          //   this.isDoingUpper = false
-          //   wx.showToast({
-          //     title: this.isDoingUpper,
-          //     icon: 'success',
-          //     duration: 2000
-          //   })
-          // })
+          ;(async () => {
+            this.doingTaskList = await this.getTaskList(0, 1)
+          })()
         }
       },
       /** 上拉加载 */
@@ -141,15 +128,16 @@ export default {
         // })
       },
       /** 获取用户的任务列表 */
-      getTaskList (status, currentPage) {
+      async getTaskList (status, currentPage) {
         const params = {
           status,
           openid: wx.getStorageSync('openid'),
           pageSize: this.pageSize,
           currentPage
         }
-        this.$Http.getTaskList(params).then(res => {
-          console.log(res)
+        return this.$Http.getTaskList(params).then(res => {
+          // console.log('res', res)
+          return res.data
         })
       },
       touchstart () {

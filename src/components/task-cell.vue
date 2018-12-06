@@ -16,7 +16,7 @@
           </div>
           <div>
             <i class="iconfont">&#xe614;</i>
-            <span>{{ endDate }}</span>
+            <span>{{ formate }}</span>
           </div>
         </div>
         <div class="task-cell__footer__btn">
@@ -37,8 +37,8 @@
         default: '新手任务'
       },
       endDate: {
-        type: String,
-        default: '2019.10.11'
+        type: [String, Object],
+        default: '-'
       },
       status: {
         type: Number,
@@ -62,6 +62,11 @@
         } else if (this.status === 2) {
           return '已完成'
         }
+      },
+      formate () {
+        console.log(this.endDate)
+        console.log(typeof this.endDate)
+        return this.endDate || '-'
       }
     }
   }
