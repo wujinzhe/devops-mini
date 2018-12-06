@@ -1,5 +1,5 @@
 <template>
-  <div class="">
+  <div class="task" @touchstart="touchstart" @touchend="touchend">
    <van-tabs @change="tabChange" color="#71d5f3" :animated="true">
     <van-tab title="未认领">
       <scroll-view
@@ -11,7 +11,7 @@
         @scroll="noScroll"
         :upper-threshold="-50"
         :lower-threshold="-50">
-        <task-cell v-for=""></task-cell>
+        <task-cell></task-cell>
       </scroll-view>
     </van-tab>
     <van-tab title="进行中">
@@ -69,21 +69,21 @@
 <script>
   import taskCell from '@/components/task-cell'
 
-  export default {
+export default {
     name: 'Task',
     components: {
       taskCell
     },
     data () {
       return {
-        a: 0,
         pageSize: 10,
         noCurrentPage: 1, // 未领取列表的当前页数
         noTaskList: [],
         doingCurrentPage: 1, // 进行中列表的当前页数
         doingTaskList: [],
         finishCurrentPage: 1, // 已完成列表的当前页数
-        finishTaskList: []
+        finishTaskList: [],
+        isDoingUpper: false // 进行中下拉
       }
     },
     watch: {
@@ -91,10 +91,8 @@
         console.log(val)
       }
     },
-    onShow: function () {
-      wx.setNavigationBarTitle({
-        title: '我的任务'
-      })
+    created () {
+      this.getTaskList(0, 1)
     },
     methods: {
       tabChange (data) {
@@ -106,15 +104,24 @@
         }
       },
       /** 下拉刷新 */
-      underlineUpper () {
-        wx.vibrateShort()
-        console.log('下拉')
-        this.a++
-        wx.showToast({
-          title: this.a.toString(),
-          icon: 'success',
-          duration: 2000
-        })
+      doingUpper () {
+        if (!this.isDoingUpper) {
+          this.isDoingUpper = true
+          // wx.showToast({
+          //   title: this.isDoingUpper,
+          //   icon: 'success',
+          //   duration: 2000
+          // })
+          wx.vibrateShort()
+          // setTimeout(() => {
+          //   this.isDoingUpper = false
+          //   wx.showToast({
+          //     title: this.isDoingUpper,
+          //     icon: 'success',
+          //     duration: 2000
+          //   })
+          // })
+        }
       },
       /** 上拉加载 */
       underlineLower () {
@@ -144,6 +151,12 @@
         this.$Http.getTaskList(params).then(res => {
           console.log(res)
         })
+      },
+      touchstart () {
+        console.log('start')
+      },
+      touchend () {
+        this.isDoingUpper = false
       }
     }
   }
