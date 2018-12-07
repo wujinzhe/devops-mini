@@ -72,14 +72,15 @@ export default {
     },
     data () {
       return {
-        pageSize: 10,
+        pageSize: 6,
         noCurrentPage: 1, // 未领取列表的当前页数
         noTaskList: [],
         doingCurrentPage: 1, // 进行中列表的当前页数
         doingTaskList: [],
         finishCurrentPage: 1, // 已完成列表的当前页数
         finishTaskList: [],
-        isDoingUpper: false // 进行中下拉
+        isDoingUpper: false, // 进行中下拉
+        isDoingLower: false // 进行中上拉
       }
     },
     watch: {
@@ -89,7 +90,9 @@ export default {
     },
     async created () {
       this.doingTaskList = await this.getTaskList(0, 1)
-      console.log(this.doingTaskList)
+      this.doingCurrentPage = 2
+      // this.doingUpper()
+      // console.log(this.doingTaskList)
     },
     methods: {
       tabChange (data) {
@@ -107,11 +110,21 @@ export default {
           wx.vibrateShort()
           ;(async () => {
             this.doingTaskList = await this.getTaskList(0, 1)
+            this.doingCurrentPage = 2
           })()
         }
       },
       /** 上拉加载 */
-      underlineLower () {
+      doingLower () {
+        if (!this.isDoingLower) {
+          this.isDoingLower = true
+          wx.vibrateShort()
+          ;(async () => {
+            let list = await this.getTaskList(0, this.doingCurrentPage)
+            this.doingTaskList.push(...list)
+            this.doingCurrentPage++
+          })()
+        }
       // wx.showToast({
       //   title: '上拉',
       //   icon: 'success',
@@ -136,7 +149,7 @@ export default {
           currentPage
         }
         return this.$Http.getTaskList(params).then(res => {
-          // console.log('res', res)
+          console.log('res', res)
           return res.data
         })
       },
@@ -145,6 +158,7 @@ export default {
       },
       touchend () {
         this.isDoingUpper = false
+        this.isDoingLower = false
       }
     }
   }

@@ -64,8 +64,8 @@
         }
       },
       formate () {
-        console.log(this.endDate)
-        console.log(typeof this.endDate)
+        // console.log(this.endDate)
+        // console.log(typeof this.endDate)
         return this.endDate || '-'
       }
     }
