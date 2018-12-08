@@ -12,5 +12,11 @@ export default {
   getUserBaseInfo: data => request.get(`${baseUrl}/user/getUserBaseInfo`, data),
 
   /** 【任务】获取用户的任务 */
-  getTaskList: data => request.get(`${baseUrl}/task/getTaskList`, data)
+  getTaskList: data => request.get(`${baseUrl}/task/getTaskList`, data),
+
+  /** 【任务】认领 */
+  claimTask: data => request.post(`${baseUrl}/task/claimTask`, data),
+
+  /** 【任务】领取积分 */
+  receiveIntegral: data => request.post(`${baseUrl}/task/receiveIntegral`, data)
 }

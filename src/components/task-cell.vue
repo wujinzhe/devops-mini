@@ -20,8 +20,9 @@
           </div>
         </div>
         <div class="task-cell__footer__btn">
-          <a href="" v-if="status === 0">认领</a>
-          <a href="">详情</a>
+          <a href="" v-if="status === 0" @click="doTask">认领</a>
+          <a href="" v-else-if="status === 2 && isReceive === 0" @click="getIntegral">领取积分</a>
+          <!-- <a href="" @click="showDetail">详情</a> -->
         </div>
       </div>
     </div>
@@ -51,6 +52,13 @@
       integral: {
         type: Number,
         default: 200
+      },
+      isReceive: {
+        type: Number,
+        default: 0
+      },
+      id: {
+        type: Number
       }
     },
     computed: {
@@ -67,6 +75,21 @@
         // console.log(this.endDate)
         // console.log(typeof this.endDate)
         return this.endDate || '-'
+      }
+    },
+    methods: {
+      doTask () {
+        // console.log('toTask')
+        this.$emit('doTask')
+      },
+      showDetail () {
+        this.$emit('showDetail', {
+          title: this.title,
+          desc: this.desc
+        })
+      },
+      getIntegral () {
+        this.$emit('getIntegral')
       }
     }
   }
