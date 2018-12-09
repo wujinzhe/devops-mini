@@ -66,7 +66,7 @@
         if (this.status === 0) {
           return '未认领'
         } else if (this.status === 1) {
-          return '进行中'
+          return '未完成'
         } else if (this.status === 2) {
           return '已完成'
         }

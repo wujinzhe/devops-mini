@@ -86,26 +86,8 @@
         @scrolltoupper="underlineUpper"
         @scrolltolower="underlineLower"
         :upper-threshold="-50"
-        :lower-threshold="-50">
-        <book-cell></book-cell>
-        <book-cell></book-cell>
-        <book-cell></book-cell>
-        <book-cell></book-cell>
-        <book-cell></book-cell>
-        <book-cell></book-cell>
-        <book-cell></book-cell>
-        <book-cell></book-cell>
-        <book-cell></book-cell>
-        <book-cell></book-cell>
-        <book-cell></book-cell>
-        <book-cell></book-cell>
-        <book-cell></book-cell>
-        <book-cell></book-cell>
-        <book-cell></book-cell>
-        <book-cell></book-cell>
-        <book-cell></book-cell>
-        <book-cell></book-cell>
-        <book-cell></book-cell>
+        :lower-threshold="0">
+        <book-cell @tap="click"></book-cell>
        </scroll-view>
     </van-tab>
   </van-tabs>
@@ -238,6 +220,9 @@ export default {
       //   icon: 'success',
       //   duration: 2000
       // })
+    },
+    click () {
+
     }
   },
   created () {

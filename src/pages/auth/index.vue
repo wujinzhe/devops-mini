@@ -1,49 +1,37 @@
+<template>
+  <div>
+    <button open-type="getUserInfo" lang="zh_CN" @getuserinfo="getUserInfo">获取用户信息</button>
+  </div>
+</template>
+
 <script>
+
 export default {
-  created () {
-    let vm = this
-    wx.getSetting({
-      success (res) {
-        console.log('你的全显示', res.authSetting)
-        // let auth = JSON.parse(res.authSetting)
-        if (!res.authSetting['scope.userInfo']) {
-          // 调到授权页面
-          wx.navigateTo({
-            url: '/pages/auth/main'
-          })
-        } else {
-          const funcList = [vm.getUserInfo(), vm.getOpenId()]
-          Promise.all(funcList).then(data => {
-            // console.log(data)
-            const params = {
-              headUrl: data[0].avatarUrl,
-              nickName: data[0].nickName,
-              openid: data[1]
-            }
-
-            /* 暂时没有考虑到用户更换昵称和头像的情况，
-            需要获取当前头像与昵称和数据库中的作对比，
-            如果有差异则修改数据库 */
-
-            // 如果根据openid查询不到用户，则表示该用户第一次进入，添加该用户信息
-            ;(async () => {
-              const info = await vm.$Http.getUserBaseInfo({openid: data[1]})
-              !info.data && await vm.addUserBase(params)
-            })()
-          })
-        }
-      }
-    })
-  },
   methods: {
     /** 获取用户信息（头像，昵称等） */
-    async getUserInfo () {
+    getUserInfo () {
+      wx.navigateTo({
+        url: '/pages/index/main'
+      })
       return new Promise((resolve, reject) => {
         wx.getUserInfo({
           success: (res) => {
             wx.setStorageSync('userInfo', res.userInfo)
+            const userInfo = res.userInfo
             console.log('获取用户信息', res.userInfo)
-            resolve(res.userInfo)
+            // resolve(res.userInfo)
+            ;(async () => {
+              let openid = await this.getOpenId()
+              let headUrl = userInfo.avatarUrl
+              let nickName = userInfo.nickName
+
+              const info = await this.$Http.getUserBaseInfo({openid: openid})
+              !info.data && await this.addUserBase({
+                openid,
+                headUrl,
+                nickName
+              })
+            })()
           },
           fail: (err) => {
             console.log('获取用户信息失败', err)
@@ -110,29 +98,14 @@ export default {
 }
 </script>
 
-<style lang="less">
-  @import './theme/common.less';
+<style>
+.log-list {
+  display: flex;
+  flex-direction: column;
+  padding: 40rpx;
+}
 
-  .container {
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-between;
-    padding: 200rpx 0;
-    box-sizing: border-box;
-  }
-  /* this rule will be remove */
-  * {
-    transition: width 2s;
-    -moz-transition: width 2s;
-    -webkit-transition: width 2s;
-    -o-transition: width 2s;
-  }
-
-  page {
-    background-color: #f5f5f5;
-    height: 100%;
-    color: #282828;
-  }
+.log-item {
+  margin: 10rpx;
+}
 </style>

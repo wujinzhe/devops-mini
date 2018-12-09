@@ -1,6 +1,7 @@
 {
   "pages": [
     "pages/index/main",
+    "pages/auth/main",
     "pages/task/main",
     "pages/logs/main",
     "pages/contribution/main",

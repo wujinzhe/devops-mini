@@ -11,7 +11,7 @@
         <div class="my__info__integral">
           <div class="integral__content" @click="toIntegralDetails">
             <p>我的积分</p>
-            <p class="integral__content__score">10000</p>
+            <p class="integral__content__score">{{ integral }}</p>
           </div>
         </div>
       </div>
@@ -32,7 +32,8 @@
     name: 'my',
     data () {
       return {
-        userInfo: {}
+        userInfo: {},
+        integral: 0
       }
     },
     computed: {
@@ -40,34 +41,17 @@
         return `background: url(${this.userInfo.avatarUrl}) no-repeat center center;background-size: cover;`
       }
     },
-    created () {
-      console.log('我的 created')
-    },
-    mounted () {
-      console.log('我的 mounted')
-    },
-    onLoad: function (options) {
-      console.log('我的 onLoad', options)
-    },
     onReady: function () {
       // 页面渲染完成
       console.log('我的 onReady 页面渲染完成')
     },
     onShow: function () {
-      // 页面显示
-      wx.setNavigationBarTitle({
-        title: '个人中心'
+      this.$Http.getUserDevopsInfo({
+        openId: wx.getStorageSync('openid')
+      }).then(res => {
+        this.integral = res.data.integral
       })
       this.userInfo = wx.getStorageSync('userInfo')
-      console.log(this.userInfo)
-    },
-    onHide: function () {
-      // 页面隐藏
-      console.log('我的 onHide 页面隐藏')
-    },
-    onUnload: function () {
-      // 页面关闭
-      console.log('我的 onUnload 页面关闭')
     },
     methods: {
       /** 跳转我的贡献 */

@@ -1,7 +1,7 @@
 <template>
   <div class="task" @touchend="touchend">
    <van-tabs @change="tabChange" color="#71d5f3" :animated="true">
-    <van-tab title="未认领">
+    <!-- <van-tab title="未认领">
       <scroll-view
         id="noScroll"
         class="scroll-view"
@@ -31,8 +31,8 @@
           </task-cell>
         </div>
       </scroll-view>
-    </van-tab>
-    <van-tab title="进行中">
+    </van-tab> -->
+    <van-tab title="未完成">
       <scroll-view
         class="scroll-view"
         scroll-y
@@ -45,7 +45,7 @@
           <img src="/static/image/loading.gif" alt="">
         </div>
         <div class="no-data" v-else-if="!doingTaskList">
-          暂时没有进行中的任务
+          暂时没有未完成的任务
         </div> 
         <template v-else>
           <task-cell
@@ -130,18 +130,18 @@ export default {
     }
   },
   async onShow () {
-    await this.initNoTaskList()
+    await this.initDoingTaskList()
   },
   methods: {
     tabChange (data) {
       switch (data.target.index) {
+        // case 0:
+        //   this.initNoTaskList()
+        //   break
         case 0:
-          this.initNoTaskList()
-          break
-        case 1:
           this.initDoingTaskList()
           break
-        case 2:
+        case 1:
           this.initFinishTaskList()
           break
       }
@@ -255,7 +255,8 @@ export default {
     getIntegral (item) {
       this.$Http.receiveIntegral({
         openid: wx.getStorageSync('openid'),
-        taskId: item.taskId
+        taskId: item.taskId,
+        integral: item.integral
       }).then(res => {
         item.isReceive = 1
         wx.showToast({
@@ -264,6 +265,12 @@ export default {
           duration: 1000
         })
       })
+
+      this.$Http.addIntegral({
+        openId: wx.getStorageSync('openid'),
+        integral: item.integral,
+        content: item.title
+      }).then(res => {})
     },
     /** 领取任务 */
     doTask (taskId) {
@@ -274,12 +281,6 @@ export default {
         this.noTaskList.forEach((item, index) => {
           if (item.taskId === taskId) {
             this.noTaskList.splice(index, 1)
-            // let noScrollHeight = this.$refs.noScroll.$el.clientHeight
-            // let noTaskListHeight = this.$refs.noTaskList.$el.clientHeight
-            // console.log(noScrollHeight)
-            // if (noTaskListHeight < noScrollHeight) {
-            //   this.initNoTaskList()
-            // }
             wx.showToast({
               title: '认领成功',
               icon: 'success',
