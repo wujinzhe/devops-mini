@@ -1,6 +1,19 @@
 <template>
-  <div>
-    <button open-type="getUserInfo" lang="zh_CN" @getuserinfo="getUserInfo">获取用户信息</button>
+  <div style="padding: 0 80rpx;">
+    <div class="header">
+      <div class="header-img">
+        logo
+      </div>
+      <!-- <img src="" alt="" class="head-img"> -->
+      <h1>我是标题</h1>
+    </div>
+
+    <div class="content">
+      <h2>登录后开发者将获得以下权限</h2>
+      <p><span style="font-size: 50rpx; vertical-align: middle;">·</span> 获得你的公开信息（昵称、头像等）</p>
+    </div>
+
+    <button type="primary" open-type="getUserInfo"@getuserinfo="getUserInfo">确认登录</button>
   </div>
 </template>
 
@@ -10,9 +23,6 @@ export default {
   methods: {
     /** 获取用户信息（头像，昵称等） */
     getUserInfo () {
-      wx.navigateTo({
-        url: '/pages/index/main'
-      })
       return new Promise((resolve, reject) => {
         wx.getUserInfo({
           success: (res) => {
@@ -30,6 +40,9 @@ export default {
                 openid,
                 headUrl,
                 nickName
+              })
+              wx.switchTab({
+                url: '/pages/index/main'
               })
             })()
           },
@@ -98,14 +111,43 @@ export default {
 }
 </script>
 
-<style>
-.log-list {
-  display: flex;
-  flex-direction: column;
-  padding: 40rpx;
-}
+<style lang="less" scope>
+  page {
+    background-color: #ffffff;
+  }
 
-.log-item {
-  margin: 10rpx;
-}
+  .header {
+    text-align: center;
+    padding-top: 120rpx;
+    font-size: 40rpx;
+
+    &-img {
+      width: 150rpx;
+      height: 150rpx;
+      border: 1px solid #cccccc;
+      margin: auto;
+    }
+
+    h1 {
+      margin-top: 15rpx;
+    }
+  }
+
+  .content {
+    border-top: 1px solid #eeeeee;
+    margin-top: 50rpx;
+    margin-bottom: 80rpx;
+    font-size: 30rpx;
+
+    h2 {
+      margin-top: 40rpx;
+    }
+
+    p {
+      color: #999999;
+      margin-top: 10rpx;
+    }
+  }
+
+
 </style>

@@ -4,13 +4,11 @@ export default {
     let vm = this
     wx.getSetting({
       success (res) {
-        console.log('你的全显示', res.authSetting)
+        console.log('你的权限', res.authSetting)
         // let auth = JSON.parse(res.authSetting)
         if (!res.authSetting['scope.userInfo']) {
           // 调到授权页面
-          wx.navigateTo({
-            url: '/pages/auth/main'
-          })
+          wx.redirectTo({ url: '/pages/auth/main' })
         } else {
           const funcList = [vm.getUserInfo(), vm.getOpenId()]
           Promise.all(funcList).then(data => {

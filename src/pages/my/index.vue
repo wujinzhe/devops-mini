@@ -5,7 +5,7 @@
       <div class="my__info__content">
         <img :src="userInfo.avatarUrl" class="my__info__avatar">
         <div>
-          <p>昵称: {{userInfo.nickName}}</p>
+          <p class="my__info__name">昵称: {{userInfo.nickName}}</p>
           <p>等级: ⭐️️️⭐️️️️⭐️️️️⭐️️️️</p>
         </div>
         <div class="my__info__integral">
@@ -100,6 +100,13 @@
         height: 160rpx;
         border-radius: 80rpx;
         margin: 0 30rpx;
+      }
+
+      &__name {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        max-width: 135px;
       }
 
       &--blur {
